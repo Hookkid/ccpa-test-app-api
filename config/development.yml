@@ -1,0 +1,8 @@
+db:
+  host: '127.0.0.1'
+  username: 'c_c_p_a_test_app'
+  password: 'HZmabuQuzr3_Pkx3FXPXD'
+  synchronize: true
+
+jwt:
+  secret: 'topSecret51'
