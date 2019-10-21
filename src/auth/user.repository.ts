@@ -21,17 +21,24 @@ export class UserRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     
     try {
-      const options = {
-        url: `http://localhost:3080/endpoints/privacy-rights/v1?email=${user.email}`,
-        headers: {
-          Authorization: 'bearer 4B394C7A23F7B9888559C1A9AAA91'
+      const url = `http://localhost:3080/endpoints/privacy-rights/v1?email=${user.email}`;
+      const getOptedOutData = async url => {
+        try {
+          const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'bearer 4B394C7A23F7B9888559C1A9AAA91'
+            }});
+          const json = await response.json();
+          user.optedOut = json.opted_out;
+          await user.save();
+        } catch (error) {
+          console.log(error);
         }
       };
-      // await request.get(options, function(error, response, body) {
-      //   user.optedOut = body.opted_out;
-      // });
+      await getOptedOutData(url);
 
-      await user.save();
       return { message: 'ok' }
     } catch (error) {
       if (error.code === '23505') { // duplicate username
