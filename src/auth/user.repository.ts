@@ -16,7 +16,7 @@ export class UserRepository extends Repository<User> {
     user.email = email;
     user.firstName = firstName;
     user.lastName = lastName;
-    user.optedOut = false;
+    user.optedOut = true;
     user.salt = await bcrypt.genSalt();
     user.password = await this.hashPassword(password, user.salt);
     
@@ -28,7 +28,7 @@ export class UserRepository extends Repository<User> {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'bearer 4B394C7A23F7B9888559C1A9AAA91'
+              'Authorization': 'bearer test'
             }});
           const json = await response.json();
           user.optedOut = json.opted_out;
@@ -60,7 +60,7 @@ export class UserRepository extends Repository<User> {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'bearer 4B394C7A23F7B9888559C1A9AAA91'
+            'Authorization': 'bearer test'
           }});
         const json = await response.json();
         user.optedOut = json.opted_out;
