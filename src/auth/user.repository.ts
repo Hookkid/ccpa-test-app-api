@@ -21,7 +21,7 @@ export class UserRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     
     try {
-      const url = `http://localhost:3080/endpoints/privacy-rights/v1?email=${user.email}`;
+      const url = `https://pr123--aaa-ncnu--digital-ccpa-dns.calstate.aaabeta.com/endpoints/privacy-rights/v1?email=${user.email}`;
       const getOptedOutData = async url => {
         try {
           const response = await fetch(url, {
@@ -53,7 +53,7 @@ export class UserRepository extends Repository<User> {
     const { email, password } = AuthSigninDto;
     const user = await this.findOne({ email });
 
-    const url = `http://localhost:3080/endpoints/privacy-rights/v1?email=${user.email}`;
+    const url = `https://pr123--aaa-ncnu--digital-ccpa-dns.calstate.aaabeta.com/endpoints/privacy-rights/v1?email=${user.email}`;
     const getOptedOutData = async url => {
       try {
         const response = await fetch(url, {
